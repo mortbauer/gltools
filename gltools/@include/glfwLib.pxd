@@ -5,11 +5,12 @@ cdef extern from "GLFW/glfw3.h":
         GLFW_VERSION_MAJOR
         GLFW_VERSION_MINOR
         GLFW_VERSION_REVISION
-        
+
         # Key and button state/action definitions
         GLFW_RELEASE
         GLFW_PRESS
-        
+        GLFW_REPEAT
+
         # Printable keys
         GLFW_KEY_SPACE
         GLFW_KEY_APOSTROPHE
@@ -61,7 +62,7 @@ cdef extern from "GLFW/glfw3.h":
         GLFW_KEY_GRAVE_ACCENT
         GLFW_KEY_WORLD_1
         GLFW_KEY_WORLD_2
-        
+
         # Function keys
         GLFW_KEY_ESCAPE
         GLFW_KEY_ENTER
@@ -134,7 +135,7 @@ cdef extern from "GLFW/glfw3.h":
         GLFW_KEY_RIGHT_SUPER
         GLFW_KEY_MENU
         GLFW_KEY_LAST
-        
+
         # Modifiers
         GLFW_MOD_SHIFT
         GLFW_MOD_CONTROL
@@ -254,18 +255,18 @@ cdef extern from "GLFW/glfw3.h":
 
         # Gamma ramps
         GLFW_GAMMA_RAMP_SIZE
-        
+
     # OpenGL function pointer type
     ctypedef void (*GLFWglproc)()
-    
+
     # Monitor handle type
     cdef struct GLFWmonitor:
         pass
-    
+
     # Window handle type
     cdef struct GLFWwindow:
         pass
-    
+
     # Function pointer types
     ctypedef void (* GLFWerrorfun)(int,char*)
     ctypedef void (* GLFWwindowsizefun)(GLFWwindow *,int,int)
@@ -280,7 +281,7 @@ cdef extern from "GLFW/glfw3.h":
     ctypedef void (* GLFWkeyfun)(GLFWwindow *,int,int,int,int)
     ctypedef void (* GLFWcharfun)(GLFWwindow *,int)
     ctypedef void (* GLFWmonitorfun)(c_GLFWmonitor,int)
-    
+
     # The video mode structure used by glfwGetVideoModes
     cdef struct _GLFWvidmode:
         int width
@@ -289,16 +290,16 @@ cdef extern from "GLFW/glfw3.h":
         int blueBits
         int greenBits
         int refreshRate
-    
+
     ctypedef _GLFWvidmode GLFWvidmode
-    
+
     # Gamma ramp
     cdef struct _GLFWgammaramp:
         unsigned short* red
         unsigned short* green
         unsigned short* blue
         unsigned int size
-    
+
     ctypedef _GLFWgammaramp GLFWgammaramp
 
     # Initialization, termination and version querying
@@ -311,7 +312,7 @@ cdef extern from "GLFW/glfw3.h":
     int glfwGetError()
     char* glfwErrorString(int error)
     void glfwSetErrorCallback(GLFWerrorfun cbfun)
-    
+
     # Monitor handling
     GLFWmonitor *glfwGetMonitors(int* count)
     GLFWmonitor *glfwGetPrimaryMonitor()
@@ -319,16 +320,16 @@ cdef extern from "GLFW/glfw3.h":
     void glfwGetMonitorPhysicalSize(GLFWmonitor *monitor, int* width, int* height)
     char* glfwGetMonitorName(GLFWmonitor *monitor)
     GLFWmonitorfun glfwSetMonitorCallback(GLFWmonitorfun cbfun)
-    
+
     # Video mode functions
     GLFWvidmode* glfwGetVideoModes(int* count)
     const GLFWvidmode* glfwGetVideoMode(GLFWmonitor *monitor)
-    
+
     # Gamma ramp functions
     void glfwSetGamma(GLFWmonitor *monitor, float gamma)
     GLFWgammaramp* glfwGetGammaRamp(GLFWmonitor *monitor)
     void glfwSetGammaRamp(GLFWmonitor *monitor, GLFWgammaramp* ramp)
-    
+
     # Window handling
     void glfwDefaultWindowHints()
     void glfwWindowHint(int target, int hint)
@@ -354,7 +355,7 @@ cdef extern from "GLFW/glfw3.h":
     void glfwSetWindowRefreshCallback(GLFWwindow * window, GLFWwindowrefreshfun cbfun)
     void glfwSetWindowFocusCallback(GLFWwindow * window, GLFWwindowfocusfun cbfun)
     void glfwSetWindowIconifyCallback(GLFWwindow * window, GLFWwindowiconifyfun cbfun)
-    
+
     # Event handling
     void glfwPollEvents()
     void glfwWaitEvents()

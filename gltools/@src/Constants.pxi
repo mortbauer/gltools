@@ -2,6 +2,7 @@
 class ACTION:
     RELEASE = GLFW_RELEASE
     PRESS = GLFW_PRESS
+    REPEAT = GLFW_REPEAT
         
 class KEY:
     SPACE = GLFW_KEY_SPACE

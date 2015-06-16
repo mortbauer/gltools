@@ -39,7 +39,7 @@ cdef class TextureRect2D:
     cdef void *thisptr
     cpdef blit(self, float x = ?, float y = ?)
     cpdef copy(self, int mode = ?)
-    
+
 cdef class ClientBuffer:
     cdef void *thisptr
     cpdef bind(self)
@@ -72,7 +72,8 @@ cdef class Window:
     cpdef close(self)
     cpdef makeContextCurrent(self)
     cpdef swapBuffers(self)
-    cpdef mainLoop(self)  
+    cpdef bint shouldClose(self)
+    cpdef mainLoop(self)
     cpdef onSize(self, int w, int h)
     cpdef onRefresh(self)
     cpdef onCursorPos(self, double x, double y)
@@ -103,7 +104,7 @@ cpdef EndText()
 cdef class UI:
     cdef int scroll[10]
     cdef int scrollIdx
-    
+
     cpdef bint anyActive(self)
     cpdef flush(self)
     cpdef beginFrame(self, int mx, int my, char mbut, int scroll)
@@ -116,7 +117,7 @@ cdef class UI:
     cpdef unindent(self)
     cpdef separator(self)
     cpdef separatorLine(self)
-    cpdef bint button(self, text, bint enabled, int x = ?,  int y = ?, 
+    cpdef bint button(self, text, bint enabled, int x = ?,  int y = ?,
                        int w = ?,  int h = ?)
     cpdef bint item(self, text, bint enabled)
     cpdef bint check(self, text, bint checked, bint enabled)
@@ -135,15 +136,15 @@ cdef class Image:
     cdef readonly int width
     cdef readonly int height
     cdef readonly int bytesPerPixel
-    
+
     # buffer interface
     cdef Py_ssize_t __shape[1]
     cdef Py_ssize_t __strides[1]
     cdef __cythonbufferdefaults__ = {"ndim": 1, "mode": "c"}
-    
+
     cpdef flipY(self)
     cpdef writePNG(self, filename, int stride = ?)
-    
+
 cpdef InitGLExt()
 cpdef int Check()
 cpdef BlendFunc(unsigned int sfactor, unsigned int dfactor)
@@ -163,7 +164,7 @@ cpdef LightModeli(int pname, int param)
 cpdef LoadIdentity()
 cpdef LoadMatrixd(Transform tr)
 cpdef MatrixMode(unsigned int mode)
-cpdef Ortho(double left, double right, double bottom, double top, double zNear, 
+cpdef Ortho(double left, double right, double bottom, double top, double zNear,
             double zFar)
 cpdef PolygonMode(unsigned int face, unsigned int mode)
 cpdef PolygonOffset(float factor, float units)
